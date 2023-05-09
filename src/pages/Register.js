@@ -9,7 +9,7 @@ const Register = () => {
             <BackNav
                 link={'/'}
             />
-            <Container className='mt-5'>
+            <Container className='my-5'>
                 <Row className='d-flex align-items-center gap-4'>
                     <Col sm>
                         <Form>
@@ -31,7 +31,7 @@ const Register = () => {
                             <hr />
                             <Row>
                                 <Col sm>
-                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Group className="mb-3" controlId="formFirstName">
                                         <Form.Label>First Name</Form.Label>
                                         <Form.Control
                                             type="text"
@@ -40,7 +40,7 @@ const Register = () => {
                                     </Form.Group>
                                 </Col>
                                 <Col sm>
-                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Group className="mb-3" controlId="formLastName">
                                         <Form.Label>Last Name</Form.Label>
                                         <Form.Control
                                             type="text"

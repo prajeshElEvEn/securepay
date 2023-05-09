@@ -9,7 +9,7 @@ const Login = () => {
             <BackNav
                 link={'/'}
             />
-            <Container className='mt-5'>
+            <Container className='my-5'>
                 <Row className='d-flex align-items-center gap-4'>
                     <Col sm>
                         <Form>
