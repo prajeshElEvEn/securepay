@@ -9,7 +9,7 @@ const Profile = ({ user }) => {
 
     const handleImage = (e) => {
         e.preventDefault()
-        console.log(image)
+
     }
     return (
         <>
