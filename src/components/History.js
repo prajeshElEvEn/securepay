@@ -1,10 +1,10 @@
 import React from 'react'
-import NavBar from './NavBar'
+import BackNav from './BackNav'
 
 const History = ({ user }) => {
     return (
         <>
-            <NavBar user={user} />
+            <BackNav link={'/dashboard'} />
         </>
     )
 }

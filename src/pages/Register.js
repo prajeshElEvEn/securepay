@@ -54,7 +54,13 @@ const Register = () => {
             <Container className='my-5'>
                 <Row className='d-flex align-items-center gap-4'>
                     <Col sm>
+                        <Image src={RegisterImage} thumbnail />
+                    </Col>
+                    <Col sm>
                         <Form>
+                            <div className='text-center my-5'>
+                                <h1>User Registration</h1>
+                            </div>
                             <Button
                                 variant="primary"
                                 className='d-flex align-items-center gap-2 justify-content-center w-100 mb-3'
@@ -150,9 +156,6 @@ const Register = () => {
                                 Already have an account? <a href='/login'>Login</a>
                             </div>
                         </Form>
-                    </Col>
-                    <Col sm>
-                        <Image src={RegisterImage} thumbnail />
                     </Col>
                 </Row>
             </Container>

@@ -41,7 +41,13 @@ const Login = () => {
             <Container className='my-5'>
                 <Row className='d-flex align-items-center gap-4'>
                     <Col sm>
+                        <Image src={LoginImage} thumbnail />
+                    </Col>
+                    <Col sm>
                         <Form>
+                            <div className='text-center my-5 '>
+                                <h1>User Login</h1>
+                            </div>
                             <Button
                                 variant="primary"
                                 className='d-flex align-items-center gap-2 justify-content-center w-100 mb-3'
@@ -103,9 +109,6 @@ const Login = () => {
                                 Don't have an account? <a href='/register'>Sign Up</a>
                             </div>
                         </Form>
-                    </Col>
-                    <Col sm>
-                        <Image src={LoginImage} thumbnail />
                     </Col>
                 </Row>
             </Container>
