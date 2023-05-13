@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import BackNav from '../components/BackNav'
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 import RegisterImage from '../assets/images/register.png'
 
 const Register = () => {
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPrassword, setConfirmPrassword] = useState('')
 
     const handleSignUp = (e) => {
         e.preventDefault()
+
     }
 
     return (
@@ -41,6 +47,8 @@ const Register = () => {
                                         <Form.Control
                                             type="text"
                                             placeholder="First Name"
+                                            value={firstName}
+                                            onChange={(e) => setFirstName(e.target.value)}
                                         />
                                     </Form.Group>
                                 </Col>
@@ -50,6 +58,8 @@ const Register = () => {
                                         <Form.Control
                                             type="text"
                                             placeholder="Last Name"
+                                            value={lastName}
+                                            onChange={(e) => setLastName(e.target.value)}
                                         />
                                     </Form.Group>
                                 </Col>
@@ -59,6 +69,8 @@ const Register = () => {
                                 <Form.Control
                                     type="email"
                                     placeholder="name@example.com"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                                 <Form.Text className="text-muted">
                                     We'll never share your email with anyone else.
@@ -70,6 +82,8 @@ const Register = () => {
                                 <Form.Control
                                     type="password"
                                     placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                                 <Form.Text className="text-muted">
                                     Password must be at least 8 characters long.
@@ -80,6 +94,8 @@ const Register = () => {
                                 <Form.Control
                                     type="password"
                                     placeholder="Password"
+                                    value={confirmPrassword}
+                                    onChange={(e) => setConfirmPrassword(e.target.value)}
                                 />
                                 <Form.Text className="text-muted">
                                     Must match the password above.
