@@ -1,6 +1,6 @@
 import { signOut } from 'firebase/auth'
 import React from 'react'
-import { Button, Container, Nav, Navbar, Offcanvas } from 'react-bootstrap'
+import { Button, Container, Nav, NavDropdown, Navbar, Offcanvas } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { auth } from '../firebase/config'
 import { useDispatch } from 'react-redux'
@@ -38,12 +38,18 @@ const NavBar = ({ user }) => {
                             <div className='d-flex gap-3'>
                                 {
                                     user ? (
-                                        <Button
-                                            variant="primary"
-                                            onClick={handleLogout}
-                                        >
-                                            Logout
-                                        </Button>
+                                        <>
+                                            <NavDropdown title={user.displayName} id="collasible-nav-dropdown">
+                                                <NavDropdown.Item href="/dashboard">Dashboard</NavDropdown.Item>
+                                                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                                                <NavDropdown.Divider />
+                                                <NavDropdown.Item
+                                                    onClick={handleLogout}
+                                                >
+                                                    Logout
+                                                </NavDropdown.Item>
+                                            </NavDropdown>
+                                        </>
                                     ) : (
                                         <>
                                             <Button
