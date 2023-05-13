@@ -2,6 +2,12 @@ import React, { useState } from 'react'
 import BackNav from '../components/BackNav'
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 import RegisterImage from '../assets/images/register.png'
+import { useDispatch } from 'react-redux'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { auth } from '../firebase/config'
+import { login } from '../features/user/userSlice'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
     const [firstName, setFirstName] = useState('')
@@ -10,9 +16,34 @@ const Register = () => {
     const [password, setPassword] = useState('')
     const [confirmPrassword, setConfirmPrassword] = useState('')
 
+    const dispatch = useDispatch()
+    const nav = useNavigate()
+
     const handleSignUp = (e) => {
         e.preventDefault()
-
+        if (password !== confirmPrassword) {
+            toast.error('Passwords do not match!')
+        } else {
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user
+                    updateProfile(user, {
+                        displayName: firstName + ' ' + lastName,
+                    })
+                        .then(() => {
+                            dispatch(login({
+                                email: userCredential.user.email,
+                                uid: userCredential.user.uid,
+                                displayName: firstName + ' ' + lastName,
+                            }))
+                        })
+                    toast.success('Account created successfully!')
+                    nav('/')
+                })
+                .catch((error) => {
+                    toast.error(error.message)
+                })
+        }
     }
 
     return (

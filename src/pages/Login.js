@@ -1,12 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import BackNav from '../components/BackNav'
 import LoginImage from '../assets/images/login.png'
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../firebase/config'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { login } from '../features/user/userSlice'
+import { toast } from 'react-toastify'
 
 const Login = () => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const dispatch = useDispatch()
+    const nav = useNavigate()
 
     const handleLogin = (e) => {
         e.preventDefault()
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                dispatch(login({
+                    email: userCredential.user.email,
+                    uid: userCredential.user.uid,
+                    displayName: userCredential.user.displayName,
+                }))
+                toast.success('Logged In successfully!')
+                nav('/')
+            })
+            .catch((error) => {
+                toast.error(error.message)
+            })
     }
 
     return (
@@ -40,6 +64,8 @@ const Login = () => {
                                 <Form.Control
                                     type="email"
                                     placeholder="name@example.com"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                                 <Form.Text className="text-muted">
                                     We'll never share your email with anyone else.
@@ -51,6 +77,8 @@ const Login = () => {
                                 <Form.Control
                                     type="password"
                                     placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                                 <Form.Text className="text-muted">
                                     Password must be at least 8 characters long.
