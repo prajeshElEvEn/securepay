@@ -4,6 +4,11 @@ import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 import RegisterImage from '../assets/images/register.png'
 
 const Register = () => {
+
+    const handleSignUp = (e) => {
+        e.preventDefault()
+    }
+
     return (
         <>
             <BackNav
@@ -83,7 +88,8 @@ const Register = () => {
                             <Button
                                 variant="primary"
                                 type="submit"
-                                className='d-flex align-items-center gap-2 justify-content-center w-100'
+                                className='d-flex align-items-center gap-2 justify-content-center w-100 mb-3'
+                                onClick={handleSignUp}
                             >
                                 <span>
                                     Sign Up
@@ -93,6 +99,9 @@ const Register = () => {
                                     <path fill-rule="evenodd" d="M15.785 12.424a.6.6 0 0 0 0-.85l-3.6-3.6a.602.602 0 0 0-.85.85l2.576 2.576H3.36a.6.6 0 1 0 0 1.2h10.55l-2.576 2.575a.6.6 0 1 0 .85.85l3.6-3.6Z" clip-rule="evenodd"></path>
                                 </svg>
                             </Button>
+                            <div className=''>
+                                Already have an account? <a href='/login'>Login</a>
+                            </div>
                         </Form>
                     </Col>
                     <Col sm>

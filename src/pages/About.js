@@ -1,8 +1,13 @@
 import React from 'react'
+import BackNav from '../components/BackNav'
 
 const About = () => {
     return (
-        <div>About</div>
+        <>
+            <BackNav
+                link={'/'}
+            />
+        </>
     )
 }
 

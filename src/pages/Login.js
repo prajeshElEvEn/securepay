@@ -4,6 +4,11 @@ import LoginImage from '../assets/images/login.png'
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 
 const Login = () => {
+
+    const handleLogin = (e) => {
+        e.preventDefault()
+    }
+
     return (
         <>
             <BackNav
@@ -55,7 +60,8 @@ const Login = () => {
                             <Button
                                 variant="primary"
                                 type="submit"
-                                className='d-flex align-items-center gap-2 justify-content-center w-100'
+                                className='d-flex align-items-center gap-2 justify-content-center w-100 mb-3'
+                                onClick={handleLogin}
                             >
                                 <span>
                                     Login
@@ -65,6 +71,9 @@ const Login = () => {
                                     <path fill-rule="evenodd" d="M15.785 12.424a.6.6 0 0 0 0-.85l-3.6-3.6a.602.602 0 0 0-.85.85l2.576 2.576H3.36a.6.6 0 1 0 0 1.2h10.55l-2.576 2.575a.6.6 0 1 0 .85.85l3.6-3.6Z" clip-rule="evenodd"></path>
                                 </svg>
                             </Button>
+                            <div className=''>
+                                Don't have an account? <a href='/register'>Sign Up</a>
+                            </div>
                         </Form>
                     </Col>
                     <Col sm>

@@ -20,7 +20,7 @@ const NavBar = () => {
                         </Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
-                        <Nav className="justify-content-end flex-grow-1 pe-3">
+                        <Nav className="justify-content-end flex-grow-1 pe-3 gap-3">
                             <Nav.Link href="/about">Know More</Nav.Link>
                             <Nav.Link href="/contact">Contact Us</Nav.Link>
                             <div className='d-flex gap-3'>

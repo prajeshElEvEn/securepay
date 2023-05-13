@@ -1,8 +1,13 @@
 import React from 'react'
+import BackNav from '../components/BackNav'
 
 const Contact = () => {
     return (
-        <div>Contact</div>
+        <>
+            <BackNav
+                link={'/'}
+            />
+        </>
     )
 }
 
