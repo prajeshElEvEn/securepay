@@ -1,8 +1,12 @@
 import React from 'react'
+import NavBar from '../../components/NavBar'
 
-const Dashboard = () => {
+const Dashboard = ({ user }) => {
     return (
-        <div>Dashboard</div>
+        <>
+            <NavBar user={user} />
+
+        </>
     )
 }
 

@@ -26,7 +26,7 @@ const Login = () => {
                     displayName: userCredential.user.displayName,
                 }))
                 toast.success('Logged In successfully!')
-                nav('/')
+                nav('/dashboard')
             })
             .catch((error) => {
                 toast.error(error.message)

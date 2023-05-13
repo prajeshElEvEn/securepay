@@ -38,7 +38,7 @@ const Register = () => {
                             }))
                         })
                     toast.success('Account created successfully!')
-                    nav('/')
+                    nav('/dashboard')
                 })
                 .catch((error) => {
                     toast.error(error.message)
