@@ -1,10 +1,10 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
 
-const Home = () => {
+const Home = ({ user }) => {
     return (
         <>
-            <NavBar />
+            <NavBar user={user} />
         </>
     )
 }

@@ -7,12 +7,34 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, logout, selectUser } from './features/user/userSlice';
+import { useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase/config';
 
 function App() {
+  const user = useSelector(selectUser)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(login({
+          email: user.email,
+          uid: user.uid,
+          displayName: user.displayName,
+        }))
+      } else {
+        dispatch(logout())
+      }
+    })
+  }, [dispatch])
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home user={user} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
