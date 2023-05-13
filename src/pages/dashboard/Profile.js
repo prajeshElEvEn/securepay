@@ -1,15 +1,35 @@
 import React, { useState } from 'react'
 import BackNav from '../../components/BackNav'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { getDownloadURL, listAll, ref as refStorage, uploadBytes } from 'firebase/storage'
 import Avatar from 'react-avatar';
+import { v4 } from 'uuid'
+import { storage } from '../../firebase/config';
+import { toast } from 'react-toastify';
 
 const Profile = ({ user }) => {
-    const [image, setImage] = useState()
-    const [urlList, setUrlList] = useState()
+    const [image, setImage] = useState(null)
+    const [urlList, setUrlList] = useState([])
 
-    const handleImage = (e) => {
+    const handleImage = async (e) => {
         e.preventDefault()
-
+        if (image) {
+            const imageRef = refStorage(storage, `labeled_images/${user.displayName}/${image.name + v4()}`)
+            await uploadBytes(imageRef, image)
+                .then(() => {
+                    getDownloadURL(imageRef).then((url) => {
+                        urlList.push(url)
+                        setUrlList(urlList)
+                    })
+                    setImage(null)
+                    toast.success('Image added successfully!')
+                })
+                .catch(error => {
+                    toast.error(error.message)
+                })
+        } else {
+            toast.error('Please select an image!')
+        }
     }
     return (
         <>
