@@ -14,6 +14,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/config';
 import Dashboard from './pages/dashboard/Dashboard';
 import Profile from './pages/dashboard/Profile';
+import History from './components/History';
 
 function App() {
   const user = useSelector(selectUser)
@@ -43,6 +44,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/dashboard" element={<Dashboard user={user} />} />
         <Route path="/profile" element={<Profile user={user} />} />
+        <Route path="/history" element={<History user={user} />} />
       </Routes>
       <ToastContainer />
     </>

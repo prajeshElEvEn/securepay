@@ -42,6 +42,7 @@ const NavBar = ({ user }) => {
                                             <NavDropdown title={user.displayName} id="collasible-nav-dropdown">
                                                 <NavDropdown.Item href="/dashboard">Dashboard</NavDropdown.Item>
                                                 <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                                                <NavDropdown.Item href="/history">History</NavDropdown.Item>
                                                 <NavDropdown.Divider />
                                                 <NavDropdown.Item
                                                     onClick={handleLogout}
