@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import BackNav from '../../components/BackNav'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import Avatar from 'react-avatar';
 
 const Profile = ({ user }) => {
+    const [image, setImage] = useState()
+    const [urlList, setUrlList] = useState()
+
     const handleImage = (e) => {
         e.preventDefault()
+        console.log(image)
     }
     return (
         <>
@@ -47,7 +51,12 @@ const Profile = ({ user }) => {
                             {/* <hr /> */}
                             <Form.Group controlId="formFile" className="mb-3">
                                 <Form.Label>Add upto (5-6) Images</Form.Label>
-                                <Form.Control type="file" />
+                                <Form.Control
+                                    type="file"
+                                    onChange={(e) => {
+                                        setImage(e.target.files[0])
+                                    }}
+                                />
                                 <Form.Text className="text-muted">
                                     Add images one by one.
                                 </Form.Text>
