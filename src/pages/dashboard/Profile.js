@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import BackNav from '../../components/BackNav'
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
-import { getDownloadURL, listAll, ref as refStorage, uploadBytes } from 'firebase/storage'
+import { getDownloadURL, ref as refStorage, uploadBytes } from 'firebase/storage'
 import Avatar from 'react-avatar';
 import { v4 } from 'uuid'
 import { db, storage } from '../../firebase/config';
 import { toast } from 'react-toastify';
-import { addDoc, collection, doc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { collection, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 
 const Profile = ({ user }) => {
     const [image, setImage] = useState(null)
