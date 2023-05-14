@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BackNav from '../../components/BackNav'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 import { getDownloadURL, listAll, ref as refStorage, uploadBytes } from 'firebase/storage'
 import Avatar from 'react-avatar';
 import { v4 } from 'uuid'
 import { db, storage } from '../../firebase/config';
 import { toast } from 'react-toastify';
-import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
 
 const Profile = ({ user }) => {
     const [image, setImage] = useState(null)
     const [urlList, setUrlList] = useState([])
+    const [imageList, setImageList] = useState()
 
     const handleImage = async (e) => {
         e.preventDefault()
@@ -35,6 +36,18 @@ const Profile = ({ user }) => {
             toast.error('Please select an image!')
         }
     }
+
+    useEffect(() => {
+        onSnapshot(collection(db, "users"), (snapshot) => {
+            snapshot.forEach((doc) => {
+                if (doc.data().email === user?.email) {
+                    setImageList(doc.data().image)
+                }
+            })
+        })
+    }, [user?.email])
+
+
     return (
         <>
             <BackNav link={'/dashboard'} />
@@ -100,6 +113,28 @@ const Profile = ({ user }) => {
                                 </svg>
                             </Button>
                         </Form>
+                    </Col>
+                </Row>
+            </Container>
+            <Container className='py-5'>
+                <Row>
+                    <div className='text-center my-5'>
+                        <h1>
+                            Your Images
+                        </h1>
+                    </div>
+                </Row>
+                <Row>
+                    <Col sm>
+                        {
+                            imageList?.map((image, index) => (
+                                <Image
+                                    width={300}
+                                    key={index}
+                                    src={image}
+                                    thumbnail />
+                            ))
+                        }
                     </Col>
                 </Row>
             </Container>
