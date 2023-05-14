@@ -127,13 +127,21 @@ const Profile = ({ user }) => {
                 <Row>
                     <Col sm>
                         {
-                            imageList?.map((image, index) => (
-                                <Image
-                                    width={300}
-                                    key={index}
-                                    src={image}
-                                    thumbnail />
-                            ))
+                            imageList?.length > 0 ? (
+                                imageList?.map((image, index) => (
+                                    <Image
+                                        width={300}
+                                        key={index}
+                                        src={image}
+                                        thumbnail />
+                                ))
+                            ) : (
+                                <div className='text-center my-5'>
+                                    <h6>
+                                        You have not added any images yet!
+                                    </h6>
+                                </div>
+                            )
                         }
                     </Col>
                 </Row>
