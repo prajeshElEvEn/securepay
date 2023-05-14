@@ -3,15 +3,17 @@ import BackNav from '../components/BackNav'
 import LoginImage from '../assets/images/login.png'
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../firebase/config'
+import { auth, db } from '../firebase/config'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../features/user/userSlice'
 import { toast } from 'react-toastify'
+import { collection, onSnapshot } from 'firebase/firestore'
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [userId, setUserId] = useState()
 
     const dispatch = useDispatch()
     const nav = useNavigate()
@@ -20,10 +22,18 @@ const Login = () => {
         e.preventDefault()
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
+                onSnapshot(collection(db, "users"), (snapshot) => {
+                    snapshot.forEach((doc) => {
+                        if (doc.data().email === userCredential.user.email) {
+                            setUserId(doc.id)
+                        }
+                    })
+                })
                 dispatch(login({
                     email: userCredential.user.email,
                     uid: userCredential.user.uid,
                     displayName: userCredential.user.displayName,
+                    id: userId
                 }))
                 toast.success('Logged In successfully!')
                 nav('/dashboard')

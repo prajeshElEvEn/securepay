@@ -4,10 +4,11 @@ import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 import RegisterImage from '../assets/images/register.png'
 import { useDispatch } from 'react-redux'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { auth } from '../firebase/config'
+import { auth, db } from '../firebase/config'
 import { login } from '../features/user/userSlice'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { addDoc, collection, onSnapshot, serverTimestamp } from 'firebase/firestore'
 
 const Register = () => {
     const [firstName, setFirstName] = useState('')
@@ -15,6 +16,7 @@ const Register = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPrassword, setConfirmPrassword] = useState('')
+    const [userId, setUserId] = useState()
 
     const dispatch = useDispatch()
     const nav = useNavigate()
@@ -31,10 +33,25 @@ const Register = () => {
                         displayName: firstName + ' ' + lastName,
                     })
                         .then(() => {
+                            addDoc(collection(db, "users"), {
+                                name: firstName + ' ' + lastName,
+                                email: userCredential.user.email,
+                                uid: userCredential.user.uid,
+                                image: [],
+                                timestamp: serverTimestamp()
+                            })
+                            onSnapshot(collection(db, "users"), (snapshot) => {
+                                snapshot.forEach((doc) => {
+                                    if (doc.data().email === userCredential.user.email) {
+                                        setUserId(doc.id)
+                                    }
+                                })
+                            })
                             dispatch(login({
                                 email: userCredential.user.email,
                                 uid: userCredential.user.uid,
                                 displayName: firstName + ' ' + lastName,
+                                id: userId
                             }))
                         })
                     toast.success('Account created successfully!')

@@ -4,8 +4,9 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { getDownloadURL, listAll, ref as refStorage, uploadBytes } from 'firebase/storage'
 import Avatar from 'react-avatar';
 import { v4 } from 'uuid'
-import { storage } from '../../firebase/config';
+import { db, storage } from '../../firebase/config';
 import { toast } from 'react-toastify';
+import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 
 const Profile = ({ user }) => {
     const [image, setImage] = useState(null)
@@ -15,11 +16,14 @@ const Profile = ({ user }) => {
         e.preventDefault()
         if (image) {
             const imageRef = refStorage(storage, `labeled_images/${user.displayName}/${image.name + v4()}`)
+            const userDoc = doc(db, "users", user.id)
             await uploadBytes(imageRef, image)
                 .then(() => {
                     getDownloadURL(imageRef).then((url) => {
-                        urlList.push(url)
-                        setUrlList(urlList)
+                        setUrlList([...urlList, url])
+                        updateDoc(userDoc, {
+                            image: [...urlList, url],
+                        })
                     })
                     setImage(null)
                     toast.success('Image added successfully!')
@@ -77,6 +81,7 @@ const Profile = ({ user }) => {
                                         setImage(e.target.files[0])
                                     }}
                                 />
+
                                 <Form.Text className="text-muted">
                                     Add images one by one.
                                 </Form.Text>

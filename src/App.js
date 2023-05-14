@@ -9,30 +9,40 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/user/userSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase/config';
+import { auth, db } from './firebase/config';
 import Dashboard from './pages/dashboard/Dashboard';
 import Profile from './pages/dashboard/Profile';
 import History from './components/History';
+import { collection, onSnapshot } from 'firebase/firestore';
 
 function App() {
+  const [userId, setUserId] = useState()
   const user = useSelector(selectUser)
   const dispatch = useDispatch()
 
   useEffect(() => {
+    onSnapshot(collection(db, "users"), (snapshot) => {
+      snapshot.forEach((doc) => {
+        if (doc.data().email === user?.email) {
+          setUserId(doc.id)
+        }
+      })
+    })
     onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(login({
           email: user.email,
           uid: user.uid,
           displayName: user.displayName,
+          id: userId
         }))
       } else {
         dispatch(logout())
       }
     })
-  }, [dispatch])
+  }, [dispatch, userId, user?.email])
 
   return (
     <>
