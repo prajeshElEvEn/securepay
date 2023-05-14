@@ -16,6 +16,7 @@ import Dashboard from './pages/dashboard/Dashboard';
 import Profile from './pages/dashboard/Profile';
 import History from './components/History';
 import { collection, onSnapshot } from 'firebase/firestore';
+import Authentication from './pages/auth/Authentication';
 
 function App() {
   const [userId, setUserId] = useState()
@@ -55,6 +56,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard user={user} />} />
         <Route path="/profile" element={<Profile user={user} />} />
         <Route path="/history" element={<History user={user} />} />
+        <Route path="/auth" element={<Authentication user={user} />} />
       </Routes>
       <ToastContainer />
     </>

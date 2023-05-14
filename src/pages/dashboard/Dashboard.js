@@ -2,12 +2,17 @@ import React from 'react'
 import NavBar from '../../components/NavBar'
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 import PaymentImage from '../../assets/images/payment.png'
+import { useNavigate } from 'react-router-dom'
 
 const Dashboard = ({ user }) => {
 
+    const nav = useNavigate()
+
     const handleAuth = (e) => {
         e.preventDefault()
+        nav('/auth')
     }
+
     return (
         <>
             <NavBar user={user} />
